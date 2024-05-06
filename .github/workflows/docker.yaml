@@ -32,6 +32,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set short SHA
+        run: echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c 1-7)" >> $GITHUB_ENV
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -46,6 +49,9 @@ jobs:
           task-definition: task-definition.json
           container-name: resistor_color_code
           image: docker.io/mariuspnct/resistorapp:${SHORT_SHA}
+
+      - name: debug
+        run: cat task-definition.json
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
