@@ -20,6 +20,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t mariuspnct/resistorapp:${{ steps.set-tag.outputs.tag }} .
 
+      - name: Debug Docker image tag
+        run: echo "Docker image tag: ${{ steps.set-tag.outputs.tag }}"
+
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
