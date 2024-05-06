@@ -47,6 +47,9 @@ jobs:
       - name: debug
         run: cat ${{ steps.task-def.outputs.task-definition }}
 
+      - name: debug-Display Task Definition
+        run: cat ${{ steps.task-def.outputs.task-definition }}
+
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
