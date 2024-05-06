@@ -51,7 +51,7 @@ jobs:
           image: docker.io/mariuspnct/resistorapp:${SHORT_SHA}
 
       - name: debug
-        run: cat task-definition.json
+        run: echo ${{ steps.task-def.outputs.task-definition }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
