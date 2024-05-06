@@ -2,8 +2,8 @@
     "taskDefinitionArn": "arn:aws:ecs:eu-central-1:534385635546:task-definition/resistor_color_code_td:10",
     "containerDefinitions": [
         {
-            "name": "resistor_color_code-cluster",
-            "image": "docker.io/mariuspnct/resistorapp:tag_image",
+            "name": "resistor_color_code",
+            "image": "docker.io/mariuspnct/resistorapp:image_tag",
             "cpu": 256,
             "memory": 512,
             "portMappings": [
