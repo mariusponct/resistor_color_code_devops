@@ -8,8 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-     env:
+
+    env:
       SHA7: "${GITHUB_SHA:0:7}"
 
     steps:
