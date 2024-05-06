@@ -57,6 +57,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: resistorcolorcode_service
-          cluster: resistorcolorcode_cluster
+          service: resistor_color_code-service
+          cluster: resistor_color_code-cluster
           wait-for-service-stability: true
