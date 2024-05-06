@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-     - name: Set Docker image tag
+      - name: Set Docker image tag
         id: set-tag
         run: echo ::set-output name=tag::$(echo "${{ github.event.after }}" | cut -c1-7)
 
