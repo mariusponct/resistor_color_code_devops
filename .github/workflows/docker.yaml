@@ -15,7 +15,7 @@ jobs:
 
       - name: Set Docker image tag
         id: set-tag
-        run: echo ::set-output name=tag::$(echo "${{ github.event.after }}" | cut -c1-7)
+        run: echo ::set-output name=tag::$(echo "${{ github.sha }}" | cut -c1-7)
 
       - name: Build Docker image
         run: docker build -t mariuspnct/resistorapp:${{ steps.set-tag.outputs.tag }} .
