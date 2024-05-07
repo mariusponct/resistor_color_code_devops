@@ -16,7 +16,7 @@ jobs:
       - name: Build Docker image
         id: build-image
         env:
-          IMAGE_TAG: ${github.sha[0:7]}
+          IMAGE_TAG: ${{ github.sha }} | cut -c1-7)
         run: docker build -t mariuspnct/resistorapp:$IMAGE_TAG .
 
       - name: Debug Docker image tag
