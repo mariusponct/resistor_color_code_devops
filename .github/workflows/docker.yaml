@@ -36,6 +36,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Debug Tag Value
+        run: echo "Tag value ${{ steps.set-tag.outputs.tag }}"
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
