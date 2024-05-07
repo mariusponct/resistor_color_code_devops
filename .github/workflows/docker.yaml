@@ -17,8 +17,9 @@ jobs:
         id: build-image
         env:
           IMAGE_TAG: ${{ github.sha }}
-        run: IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-7)
-        run: docker build -t mariuspnct/resistorapp:$IMAGE_TAG .
+        run: |
+          IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-7)
+          docker build -t mariuspnct/resistorapp:$IMAGE_TAG .
 
       - name: Debug Docker image tag
         run: echo "Docker image tag $IMAGE_TAG "
