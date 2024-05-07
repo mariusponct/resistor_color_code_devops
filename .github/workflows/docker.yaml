@@ -52,7 +52,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: resistor_color_code
-          image: docker.io/mariuspnct/resistorapp:${{ steps.set-tag.outputs.tag }}
+          image: mariuspnct/resistorapp:${{ steps.set-tag.outputs.tag }}
 
       - name: debug
         run: cat ${{ steps.task-def.outputs.task-definition }}
