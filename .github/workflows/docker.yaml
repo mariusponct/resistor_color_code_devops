@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    outputs:
+      image-tag: ${{ steps.build-image.outputs.IMAGE_TAG }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,6 +34,7 @@ jobs:
         run: docker push mariuspnct/resistorapp:$IMAGE_TAG
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +42,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Debug Tag Value
-        run: echo "Tag value $IMAGE_TAG "
+        run: echo "Tag value ${{ needs.build.outputs.image-tag }}"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -53,7 +57,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: resistor_color_code
-          image: docker.io/mariuspnct/resistorapp:${{ steps.build-image.outputs.image }}
+          image: docker.io/mariuspnct/resistorapp:${{ needs.build.outputs.image-tag }}
 
       - name: debug
         run: cat ${{ steps.task-def.outputs.task-definition }}
