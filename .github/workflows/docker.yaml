@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: Build and Deploy a Docker Image to a ECS cluster
 
 on:
   push:
@@ -13,15 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set Docker image tag
+      - name: Set Docker image tag - build Stage
         id: set-tag
         run: echo ::set-output name=tag::$(echo "${{ github.sha }}" | cut -c1-7)
 
       - name: Build Docker image
         run: docker build -t mariuspnct/resistorapp:${{ steps.set-tag.outputs.tag }} .
-
-      - name: Debug Docker image tag
-        run: echo "Docker image tag ${{ steps.set-tag.outputs.tag }}"
 
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
@@ -36,12 +33,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set Docker image tag (image for ECS cluster) -debug
+      - name: Set Docker image tag - deploy Stage
         id: set-tag
         run: echo ::set-output name=tag::$(echo "${{ github.sha }}" | cut -c1-7)
-
-      - name: Debug Tag Value
-        run: echo "Tag value ${{ steps.set-tag.outputs.tag }}"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -57,9 +51,6 @@ jobs:
           task-definition: task-definition.json
           container-name: resistor_color_code
           image: docker.io/mariuspnct/resistorapp:${{ steps.set-tag.outputs.tag }}
-
-      - name: debug
-        run: cat ${{ steps.task-def.outputs.task-definition }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
